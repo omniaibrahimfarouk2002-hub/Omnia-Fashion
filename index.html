@@ -1,194 +1,109 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>أمنية فاشون برو ماكس | Omnia Fashion Pro</title>
+<title>Omnia Fashion - Online Store</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#fdf2f8;padding-bottom:340px;transition:.3s}
-body.dark{background:#1a1a1a;color:white}
-body.dark .card,body.dark .form-box,body.dark .admin,body.dark .about,body.dark .info,body.dark #cart{background:#2a2a2a;color:white}
-header{background:linear-gradient(135deg,#ec4899,#8b5cf6);color:white;padding:25px;text-align:center}
-header h1{font-size:34px}
-.offer{background:#fff1f2;text-align:center;padding:12px;font-weight:bold;color:#be185d}
-.info,.form-box,.admin,.about{background:white;margin:20px;padding:20px;border-radius:15px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.1)}
-.info p{margin:5px 0}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px}
-.stat{background:white;padding:15px;border-radius:12px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.1)}
-.stat b{font-size:22px;color:#ec4899;display:block}
-.topbar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:0 20px}
-.topbar input,.topbar select{padding:12px;border-radius:25px;border:1px solid #ddd;text-align:center}
-.cats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:15px}
-.cats button{background:white;color:#ec4899;border:2px solid #ec4899}
-.cats button.active{background:#ec4899;color:white}
-.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;padding:20px}
-.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.1);text-align:center;padding-bottom:15px;position:relative;cursor:pointer}
-.card img{width:100%;height:280px;object-fit:cover}
-.card h3{margin:10px 0 3px}
-.card p{color:#777;font-size:13px;padding:0 10px}
-.price{color:#ec4899;font-weight:bold;font-size:19px;margin:8px}
-.old{color:#aaa;text-decoration:line-through;font-size:14px}
-.sizes{display:flex;gap:5px;justify-content:center;margin:8px}
-.sizes span{border:1px solid #ddd;padding:5px 10px;border-radius:8px;font-size:13px;cursor:pointer}
-.sizes span.sel{background:#111;color:white}
-.colors{display:flex;gap:6px;justify-content:center;margin:5px}
-.colors span{width:22px;height:22px;border-radius:50%;border:2px solid #eee;cursor:pointer;display:inline-block}
-.colors span.sel{border:2px solid #111;transform:scale(1.2)}
-.fav{position:absolute;top:10px;left:10px;background:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;z-index:2}
-button{background:#ec4899;color:white;border:none;padding:10px 18px;border-radius:20px;cursor:pointer;font-size:15px;margin:2px}
-.form-box input,.form-box select,.admin input,.admin select{padding:12px;margin:6px 0;width:95%;max-width:500px;border-radius:10px;border:1px solid #ddd;font-size:15px}
-#cart{position:fixed;bottom:15px;left:15px;right:15px;background:white;padding:15px;border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.25);text-align:center;max-height:320px;overflow-y:auto}
-.cart-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #eee;font-size:14px}
-.qty button{padding:4px 10px;border-radius:50%}
-#modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:99;padding:20px}
-#modalBox{background:white;border-radius:20px;max-width:500px;width:100%;padding:20px;text-align:center;max-height:90vh;overflow-y:auto}
-#modalBox img{width:100%;height:300px;object-fit:cover;border-radius:15px}
-.track{display:flex;gap:5px;justify-content:center;margin:10px 0}
-.track span{padding:8px 10px;border-radius:20px;background:#eee;font-size:12px}
-.track span.on{background:#22c55e;color:white}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#fdf2f8}
+header{background:#db2777;color:white;padding:25px;text-align:center}
+header h1{font-size:32px}
+header p{margin-top:5px;opacity:.9}
+.info{background:white;padding:15px;text-align:center;border-bottom:2px solid #fbcfe8}
+.info b{color:#db2777}
+.topbar{display:flex;justify-content:center;gap:10px;padding:15px;flex-wrap:wrap}
+.topbar input{padding:10px 15px;border-radius:20px;border:1px solid #ddd;width:260px}
+.topbar button{padding:10px 15px;border:none;border-radius:20px;background:#111827;color:white;cursor:pointer;font-weight:bold}
+.filters{text-align:center;padding:10px}
+.filters button{padding:10px 18px;margin:5px;border:none;border-radius:20px;background:white;cursor:pointer;font-weight:bold;box-shadow:0 2px 5px #ddd}
+.filters button.active{background:#db2777;color:white}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:15px;padding:15px}
+.card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 3px 10px #ddd}
+.card img{width:100%;height:260px;object-fit:cover}
+.card-body{padding:15px}
+.card-body h3{margin-bottom:5px}
+.price{color:#db2777;font-weight:bold;font-size:18px;margin:8px 0}
+.old{color:#999;text-decoration:line-through;font-size:14px;margin-left:5px}
+.card-body button{width:100%;padding:10px;background:#db2777;color:white;border:none;border-radius:10px;cursor:pointer;font-weight:bold;margin-top:5px}
+.fav{background:#f3f4f6 !important;color:#111 !important}
+.cart{position:fixed;bottom:15px;right:15px;left:15px;background:#111827;color:white;padding:15px;border-radius:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.cart button{background:#22c55e;color:white;border:none;padding:10px 15px;border-radius:10px;font-weight:bold;cursor:pointer}
+footer{background:#111827;color:white;text-align:center;padding:20px;margin-top:20px}
+footer p{margin:4px 0;font-size:14px;opacity:.9}
 </style>
 </head>
 <body>
 
 <header>
-<h1>👗 أمنية فاشون - PRO MAX</h1>
-<p>متجر ملابس أونلاين - أجا | الدقهلية</p>
-<button onclick="toggleDark()" style="background:white;color:#111;margin-top:10px">🌙 وضع ليلي / نهاري</button>
-<button onclick="login()" style="background:#111;margin-top:10px">👤 <span id="userName">تسجيل دخول</span></button>
+<h1>👗 Omnia Fashion</h1>
+<p>New Collection - Trendy & Affordable - Demo Store</p>
 </header>
 
-<div class="offer">🔥 خصم 20% بكود: OMNIA20 | شحن مجاني فوق 500 جنيه</div>
-
 <div class="info">
-<h3>📍 أمنية فاشون - أجا</h3>
-<p>📌 أجا - الدقهلية - شارع البحر الرئيسي - بجوار الموقف</p>
-<p>📞 01012345678 | ⏰ من 10 الصبح لـ 11 بالليل</p>
-</div>
-
-<div class="stats">
-<div class="stat"><b id="statProd">0</b>منتج في المتجر</div>
-<div class="stat"><b id="statOrders">0</b>طلب تم</div>
-<div class="stat"><b id="statSales">0 ج</b>إجمالي المبيعات</div>
+<b>📍 Address:</b> 999 Example Road, Cairo, Egypt - Demo Only<br>
+<b>📞 Phone:</b> 01599999999 - Demo Number<br>
+<b>🚚 Delivery:</b> All Over Egypt - Demo Delivery
 </div>
 
 <div class="topbar">
-<input id="search" oninput="render()" placeholder="🔍 دوري على فستان، تيشرت...">
-<select id="sort" onchange="render()"><option value="new">الأحدث</option><option value="low">الأرخص</option><option value="high">الأغلى</option><option value="rate">الأعلى تقييماً</option></select>
-<select id="priceFilter" onchange="render()"><option value="all">كل الأسعار</option><option value="0-300">أقل من 300</option><option value="300-500">من 300 لـ 500</option><option value="500-9999">أعلى من 500</option></select>
+<input id="search" placeholder="Search dress, hijab, bag..." oninput="render()">
+<button onclick="showFav()">❤️ My Favorites</button>
+<button onclick="showAll()">🛍️ Show All</button>
 </div>
 
-<div class="cats">
-<button class="active" onclick="setCat('الكل',this)">الكل ✨</button>
-<button onclick="setCat('بناتي',this)">👗 بناتي</button>
-<button onclick="setCat('رجالي',this)">👕 رجالي</button>
-<button onclick="setCat('أطفال',this)">👶 أطفال</button>
-<button onclick="showFav()">❤️ المفضلة (<span id="favCount">0</span>)</button>
+<div class="filters">
+<button class="active" onclick="filterItems('all',this)">All</button>
+<button onclick="filterItems('dresses',this)">Dresses</button>
+<button onclick="filterItems('hijab',this)">Hijab</button>
+<button onclick="filterItems('bags',this)">Bags</button>
+<button onclick="filterItems('shoes',this)">Shoes</button>
 </div>
 
-<div class="menu" id="menu"></div>
+<div class="products" id="products"></div>
 
-<div class="about">
-<h3>👩‍💻 عن المطورة</h3>
-<p><b>أمنية إبراهيم</b> - من أجا، الدقهلية</p>
-<p>Front-End Developer | HTML - CSS - JavaScript - LocalStorage</p>
-<p>مشروع Omnia Fashion Pro Max: تفاصيل منتج، فلترة سعر، تتبع طلب، احصائيات، وضع ليلي، تسجيل دخول</p>
-<a href="https://github.com/omniaibrahimfarouk2002-hub" target="_blank"><button>شوف شغلي على GitHub</button></a>
+<div class="cart">
+<span>🛒 Cart: <b id="count">0</b> items - <b id="total">0</b> EGP</span>
+<button onclick="orderWhatsApp()">Order on WhatsApp</button>
 </div>
 
-<div class="admin">
-<h3>🔐 لوحة تحكم - أضيفي منتج</h3>
-<input id="newName" placeholder="اسم المنتج">
-<input id="newPrice" type="number" placeholder="السعر">
-<input id="newOld" type="number" placeholder="السعر قبل الخصم (اختياري)">
-<input id="newImg" placeholder="لينك صورة المنتج">
-<select id="newCat"><option>بناتي</option><option>رجالي</option><option>أطفال</option></select><br>
-<button onclick="addProduct()">إضافة ➕</button>
-</div>
-
-<div class="form-box">
-<h3>📝 بيانات الشحن + تتبع الطلب</h3>
-<input id="name" placeholder="اسمك ايه؟"><br>
-<input id="phone" placeholder="رقم موبايلك"><br>
-<input id="address" placeholder="عنوانك فين؟"><br>
-<input id="discount" placeholder="كود الخصم - OMNIA20"><br>
-<select id="pay"><option>الدفع عند الاستلام - كاش</option><option>فودافون كاش</option><option>فيزا</option></select>
-<div id="trackBox" style="display:none">
-<p style="margin-top:10px"><b>حالة طلبك الآن:</b></p>
-<div class="track"><span id="t1" class="on">تم الاستلام ✅</span><span id="t2">جاري التجهيز 🔄</span><span id="t3">في الطريق 🛵</span><span id="t4">تم التوصيل 🎉</span></div>
-<button onclick="nextTrack()">تابعي طلبك - الخطوة اللي بعدها ➡️</button>
-</div>
-</div>
-
-<div id="cart">
-<h3>🛒 شنطتك</h3>
-<div id="items">شنطتك فاضية لسه</div>
-<p style="margin:8px 0">المجموع: <b><span id="total">0</span></b> | الخصم: <b><span id="disc">0</span></b> | بعد الخصم: <b style="color:#ec4899"><span id="final">0</span> جنيه</b></p>
-<button onclick="calcDiscount()">تطبيق الخصم 🎁</button>
-<button onclick="orderWhats()">اطلبي واتساب 📱</button>
-<button onclick="order()" style="background:#22c55e">تأكيد الطلب ✅</button>
-</div>
-
-<div id="modal" onclick="closeModal()"><div id="modalBox" onclick="event.stopPropagation()"></div></div>
+<footer>
+<p>Omnia Fashion - Demo Project by Omnia Ibrahim</p>
+<p>📍 999 Example Road, Cairo, Egypt - Demo Address Only</p>
+<p>📞 01599999999 - Demo Number Only</p>
+<p>This is a demo store, not a real shop.</p>
+</footer>
 
 <script>
-let defaultProducts=[
-{id:1,name:'فستان سواريه',cat:'بناتي',price:450,old:650,rate:4.9,desc:'فستان شيك مناسب للمناسبات والافراح، خامة ناعمة ومريحة',img:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600'},
-{id:2,name:'تيشرت أوفر سايز',cat:'رجالي',price:280,old:350,rate:4.8,desc:'تيشرت قطن 100% مريح، متوفر بكل المقاسات',img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600'},
-{id:3,name:'طقم أطفال',cat:'أطفال',price:320,old:400,rate:4.9,desc:'طقم أطفال قطن ناعم على البشرة',img:'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=600'},
-{id:4,name:'جيبة بليسيه',cat:'بناتي',price:300,old:0,rate:4.7,desc:'جيبة موضة 2026',img:'https://images.unsplash.com/photo-1583496661160-fb5886a13d44?w=600'},
-{id:5,name:'قميص كلاسيك',cat:'رجالي',price:380,old:450,rate:4.6,desc:'قميص للشغل والمناسبات',img:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600'},
-{id:6,name:'فستان بناتي',cat:'أطفال',price:250,old:0,rate:5,desc:'فستان بنوتاتي كيوت',img:'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=600'},
+const items=[
+{name:"Elegant Summer Dress",price:450,old:600,cat:"dresses",img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600"},
+{name:"Casual Floral Dress",price:380,old:500,cat:"dresses",img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600"},
+{name:"Chiffon Hijab",price:150,old:200,cat:"hijab",img:"https://images.unsplash.com/photo-1585037669753-1a5a3b4c1c5a?w=600"},
+{name:"Cotton Hijab",price:120,old:170,cat:"hijab",img:"https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600"},
+{name:"Leather Hand Bag",price:550,old:700,cat:"bags",img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600"},
+{name:"Trendy Cross Bag",price:420,old:550,cat:"bags",img:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600"},
+{name:"White Sneakers",price:650,old:800,cat:"shoes",img:"https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600"},
+{name:"Elegant Heels",price:580,old:750,cat:"shoes",img:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600"},
 ];
-let products = JSON.parse(localStorage.getItem('omniaFashion')) || defaultProducts;
-let cart={}; let favs=JSON.parse(localStorage.getItem('omniaFav'))||[];
-let orders=Number(localStorage.getItem('omniaOrders'))||0; let sales=Number(localStorage.getItem('omniaSales'))||0;
-let currentCat='الكل'; let onlyFav=false; let selectedSize={}; let selectedColor={}; let trackStep=1;
-function save(){localStorage.setItem('omniaFashion',JSON.stringify(products)); localStorage.setItem('omniaFav',JSON.stringify(favs)); localStorage.setItem('omniaOrders',orders); localStorage.setItem('omniaSales',sales);}
-function toggleDark(){document.body.classList.toggle('dark');}
-function login(){let n=prompt('اكتبي اسمك:'); if(n){document.getElementById('userName').innerText='أهلاً يا '+n; document.getElementById('name').value=n;}}
-function setCat(c,btn){currentCat=c; onlyFav=false; document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render();}
-function showFav(){onlyFav=true; render();}
+let cart=[]; let current='all'; let favs=[]; let showFavOnly=false;
 function render(){
-let q=document.getElementById('search').value.toLowerCase(); let sort=document.getElementById('sort').value; let pf=document.getElementById('priceFilter').value;
-let list=products.filter(p=>(currentCat=='الكل'||p.cat==currentCat) && p.name.toLowerCase().includes(q) && (!onlyFav || favs.includes(p.id)));
-if(pf!='all'){let [a,b]=pf.split('-').map(Number); list=list.filter(p=>p.price>=a && p.price<=b);}
-if(sort=='low') list.sort((a,b)=>a.price-b.price); if(sort=='high') list.sort((a,b)=>b.price-a.price); if(sort=='rate') list.sort((a,b)=>b.rate-a.rate);
-document.getElementById('favCount').innerText=favs.length;
-document.getElementById('statProd').innerText=products.length;
-document.getElementById('statOrders').innerText=orders;
-document.getElementById('statSales').innerText=sales+' ج';
-document.getElementById('menu').innerHTML=list.map(p=>`
-<div class="card">
-<div class="fav" onclick="event.stopPropagation();toggleFav(${p.id})">${favs.includes(p.id)?'❤️':'🤍'}</div>
-<div onclick="openModal(${p.id})"><img src="${p.img}"><h3>${p.name}</h3><p>${p.desc}</p><p>⭐ ${p.rate} | ${p.cat} - دوسي للتفاصيل</p><div class="price">${p.old?`<span class="old">${p.old} ج</span>`:''} ${p.price} جنيه</div></div>
-<div class="sizes">${['S','M','L','XL'].map(s=>`<span class="${selectedSize[p.id]==s?'sel':''}" onclick="pickSize(${p.id},'${s}',this)">${s}</span>`).join('')}</div>
-<div class="colors">${['#000','#ec4899','#3b82f6','#fff'].map(c=>`<span style="background:${c}" class="${selectedColor[p.id]==c?'sel':''}" onclick="pickColor(${p.id},'${c}',this)"></span>`).join('')}</div>
-<button onclick="addToCart(${p.id})">أضيفي للشنطة 🛒</button>
-<button onclick="deleteProduct(${p.id})" style="background:#999">حذف</button>
-</div>`).join('')||'<p style="text-align:center;width:100%">مفيش نتيجة 😢</p>';
+let q=document.getElementById('search').value.toLowerCase();
+let box=document.getElementById('products'); box.innerHTML='';
+let list=items.filter(i=>(current==='all'||i.cat===current) && i.name.toLowerCase().includes(q));
+if(showFavOnly) list=list.filter(i=>favs.includes(i.name));
+if(list.length===0) box.innerHTML='<p style="text-align:center">No products found</p>';
+list.forEach(item=>{
+let isFav=favs.includes(item.name)?'❤️ Remove from Fav':'🤍 Add to Fav';
+box.innerHTML+=`<div class="card"><img src="${item.img}"><div class="card-body"><h3>${item.name}</h3><p>⭐ 4.8 - Best Seller</p><div class="price">${item.price} EGP <span class="old">${item.old} EGP</span></div><button onclick="addToCart('${item.name}',${item.price})">Add to Cart</button><button class="fav" onclick="toggleFav('${item.name}')">${isFav}</button></div></div>`;
+});
 }
-function openModal(id){let p=products.find(x=>x.id==id); document.getElementById('modal').style.display='flex'; document.getElementById('modalBox').innerHTML=`<img src="${p.img}"><h2 style="margin:10px 0">${p.name}</h2><p>${p.desc}</p><p>⭐ ${p.rate} | القسم: ${p.cat}</p><p style="color:#ec4899;font-weight:bold;font-size:20px;margin:10px">${p.price} جنيه ${p.old?`<span style="color:#aaa;text-decoration:line-through;font-size:14px">${p.old} ج</span>`:''}</p><p>📦 متوفر | 🚚 شحن سريع لأجا والدقهلية | 🔄 استبدال مجاني 14 يوم</p><button onclick="addToCart(${p.id});closeModal()">أضيفي للشنطة 🛒</button><br><button onclick="closeModal()" style="background:#999">قفل</button>`;}
-function closeModal(){document.getElementById('modal').style.display='none';}
-function pickSize(id,s,el){selectedSize[id]=s; el.parentElement.querySelectorAll('span').forEach(x=>x.classList.remove('sel')); el.classList.add('sel');}
-function pickColor(id,c,el){selectedColor[id]=c; el.parentElement.querySelectorAll('span').forEach(x=>x.classList.remove('sel')); el.classList.add('sel');}
-function toggleFav(id){ if(favs.includes(id)) favs=favs.filter(x=>x!=id); else favs.push(id); save(); render(); }
-function addToCart(id){ cart[id]=(cart[id]||0)+1; if(!selectedSize[id]) selectedSize[id]='M'; if(!selectedColor[id]) selectedColor[id]='#000'; renderCart(); }
-function changeQty(id,d){cart[id]+=d; if(cart[id]<=0) delete cart[id]; renderCart();}
-function calcDiscount(){ renderCart(); alert('تم تطبيق الخصم لو كتبتي OMNIA20'); }
-function renderCart(){
-let html=''; let total=0;
-for(let id in cart){ let p=products.find(x=>x.id==id); if(!p) continue; let sub=p.price*cart[id]; total+=sub; html+=`<div class="cart-item"><span>${p.name} - مقاس ${selectedSize[id]||'M'} - ${p.price} ج</span><span class="qty"><button onclick="changeQty(${id},-1)">-</button> ${cart[id]} <button onclick="changeQty(${id},1)">+</button> = ${sub} ج <button onclick="changeQty(${id},-${cart[id]})" style="background:#999">x</button></span></div>`; }
-let code=document.getElementById('discount').value.trim().toUpperCase(); let disc= code=='OMNIA20'? Math.round(total*0.2):0;
-document.getElementById('items').innerHTML=html||'شنطتك فاضية لسه'; document.getElementById('total').innerText=total; document.getElementById('disc').innerText=disc; document.getElementById('final').innerText=total-disc;
-}
-function addProduct(){let n=document.getElementById('newName').value; let p=Number(document.getElementById('newPrice').value); let o=Number(document.getElementById('newOld').value)||0; let img=document.getElementById('newImg').value||'https://images.unsplash.com/photo-1445205170230-053b83016050?w=500'; let c=document.getElementById('newCat').value; if(!n||!p){alert('اكتبي الاسم والسعر');return;} products.push({id:Date.now(),name:n,cat:c,price:p,old:o,rate:5,desc:'منتج جديد من أمنية فاشون',img:img}); save(); render(); alert('اتضاف ✅');}
-function deleteProduct(id){ if(confirm('تمسحي المنتج؟')){ products=products.filter(p=>p.id!=id); delete cart[id]; save(); render(); renderCart(); } }
-function getData(){ return {n:document.getElementById('name').value, p:document.getElementById('phone').value, a:document.getElementById('address').value, pay:document.getElementById('pay').value, final:document.getElementById('final').innerText, items:Object.keys(cart).map(id=>{let pr=products.find(x=>x.id==id); return pr.name+' مقاس '+(selectedSize[id]||'M')+' x'+cart[id]}).join(', ')}; }
-function nextTrack(){trackStep++; if(trackStep>4) trackStep=4; for(let i=1;i<=4;i++){document.getElementById('t'+i).classList.toggle('on', i<=trackStep);} if(trackStep==4) alert('تم التوصيل 🎉 شكراً لثقتك في أمنية فاشون');}
-function order(){ let o=getData(); if(!o.items){alert('اختاري حاجة الأول');return;} if(!o.n||!o.p||!o.a){alert('اكتبي بياناتك');return;} orders++; sales+=Number(o.final); save(); document.getElementById('trackBox').style.display='block'; trackStep=1; alert('شكراً يا '+o.n+' ❤️\nطلبك: '+o.items+'\nالمجموع: '+o.final+' جنيه\nتابعي حالة طلبك تحت'); cart={}; renderCart(); render(); }
-function orderWhats(){ let o=getData(); if(!o.items){alert('اختاري حاجة الأول');return;} if(!o.n||!o.p||!o.a){alert('اكتبي بياناتك');return;} let msg=`طلب جديد من أمنية فاشون%0Aالاسم: ${o.n}%0Aالرقم: ${o.p}%0Aالعنوان: ${o.a}%0Aالطلب: ${o.items}%0Aالمجموع: ${o.final} جنيه%0Aالدفع: ${o.pay}`; window.open(`https://wa.me/201012345678?text=${msg}`,'_blank'); }
-render(); renderCart();
+function addToCart(n,p){cart.push({name:n,price:p});document.getElementById('count').innerText=cart.length;document.getElementById('total').innerText=cart.reduce((s,i)=>s+i.price,0);alert(n+" added to cart");}
+function filterItems(c,b){current=c;showFavOnly=false;document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();}
+function toggleFav(n){favs.includes(n)?favs=favs.filter(x=>x!==n):favs.push(n);render();}
+function showFav(){showFavOnly=true;render();}
+function showAll(){showFavOnly=false;current='all';render();}
+function orderWhatsApp(){if(cart.length===0){alert("Cart is empty");return;}let msg="Hello Omnia Fashion! I want to order:%0A";cart.forEach(i=>msg+=`- ${i.name} - ${i.price} EGP%0A`);msg+=`Total: ${cart.reduce((s,i)=>s+i.price,0)} EGP`;window.open("https://wa.me/201599999999?text="+msg,"_blank");}
+render();
 </script>
 </body>
 </html>
