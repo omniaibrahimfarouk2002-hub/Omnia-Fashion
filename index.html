@@ -1,109 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Omnia Fashion - Online Store</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#fdf2f8}
-header{background:#db2777;color:white;padding:25px;text-align:center}
-header h1{font-size:32px}
-header p{margin-top:5px;opacity:.9}
-.info{background:white;padding:15px;text-align:center;border-bottom:2px solid #fbcfe8}
-.info b{color:#db2777}
-.topbar{display:flex;justify-content:center;gap:10px;padding:15px;flex-wrap:wrap}
-.topbar input{padding:10px 15px;border-radius:20px;border:1px solid #ddd;width:260px}
-.topbar button{padding:10px 15px;border:none;border-radius:20px;background:#111827;color:white;cursor:pointer;font-weight:bold}
-.filters{text-align:center;padding:10px}
-.filters button{padding:10px 18px;margin:5px;border:none;border-radius:20px;background:white;cursor:pointer;font-weight:bold;box-shadow:0 2px 5px #ddd}
-.filters button.active{background:#db2777;color:white}
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:15px;padding:15px}
-.card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 3px 10px #ddd}
-.card img{width:100%;height:260px;object-fit:cover}
-.card-body{padding:15px}
-.card-body h3{margin-bottom:5px}
-.price{color:#db2777;font-weight:bold;font-size:18px;margin:8px 0}
-.old{color:#999;text-decoration:line-through;font-size:14px;margin-left:5px}
-.card-body button{width:100%;padding:10px;background:#db2777;color:white;border:none;border-radius:10px;cursor:pointer;font-weight:bold;margin-top:5px}
-.fav{background:#f3f4f6 !important;color:#111 !important}
-.cart{position:fixed;bottom:15px;right:15px;left:15px;background:#111827;color:white;padding:15px;border-radius:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.cart button{background:#22c55e;color:white;border:none;padding:10px 15px;border-radius:10px;font-weight:bold;cursor:pointer}
-footer{background:#111827;color:white;text-align:center;padding:20px;margin-top:20px}
-footer p{margin:4px 0;font-size:14px;opacity:.9}
-</style>
+<title>Omnia Fashion | Mansoura</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+function App() {
+  const [cart, setCart] = useState({});
+  const [filter, setFilter] = useState('All');
+  const [search, setSearch] = useState('');
+  const [fav, setFav] = useState([]);
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [promo, setPromo] = useState('');
+  const [dark, setDark] = useState(false);
 
-<header>
-<h1>👗 Omnia Fashion</h1>
-<p>New Collection - Trendy & Affordable - Demo Store</p>
-</header>
+  const products = [
+    { id:1, name:"Classic White Dress", cat:"Dresses", price:850, img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400", desc:"Elegant summer dress" },
+    { id:2, name:"Denim Jacket", cat:"Jackets", price:750, img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400", desc:"Trendy denim jacket" },
+    { id:3, name:"Black Blazer", cat:"Jackets", price:950, img:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400", desc:"Formal blazer" },
+    { id:4, name:"Floral Dress", cat:"Dresses", price:650, img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400", desc:"Floral print dress" },
+    { id:5, name:"White Sneakers", cat:"Shoes", price:1200, img:"https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400", desc:"Comfortable sneakers" },
+    { id:6, name:"Leather Handbag", cat:"Bags", price:900, img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400", desc:"Stylish leather bag" },
+  ];
 
-<div class="info">
-<b>📍 Address:</b> 999 Example Road, Cairo, Egypt - Demo Only<br>
-<b>📞 Phone:</b> 01599999999 - Demo Number<br>
-<b>🚚 Delivery:</b> All Over Egypt - Demo Delivery
-</div>
+  const filtered = products.filter(m => (filter==='All' || m.cat===filter) && m.name.toLowerCase().includes(search.toLowerCase()));
+  const totalItems = Object.values(cart).reduce((a,b)=>a+b,0);
+  let subtotal = Object.entries(cart).reduce((sum,[id,qty]) => sum + products.find(m=>m.id==id).price*qty, 0);
+  let discount = promo==='OMNIA10' ? subtotal*0.1 : 0;
+  let delivery = subtotal>0 ? 50 : 0;
+  let total = subtotal - discount + delivery;
 
-<div class="topbar">
-<input id="search" placeholder="Search dress, hijab, bag..." oninput="render()">
-<button onclick="showFav()">❤️ My Favorites</button>
-<button onclick="showAll()">🛍️ Show All</button>
-</div>
+  const changeQty = (id, delta) => {
+    setCart(prev => {
+      let n = {...prev};
+      n[id] = (n[id]||0)+delta;
+      if(n[id]<=0) delete n[id];
+      return n;
+    });
+  };
+  const toggleFav = (id) => setFav(prev => prev.includes(id) ? prev.filter(x=>x!==id) : [...prev, id]);
 
-<div class="filters">
-<button class="active" onclick="filterItems('all',this)">All</button>
-<button onclick="filterItems('dresses',this)">Dresses</button>
-<button onclick="filterItems('hijab',this)">Hijab</button>
-<button onclick="filterItems('bags',this)">Bags</button>
-<button onclick="filterItems('shoes',this)">Shoes</button>
-</div>
+  const order = () => {
+    let msg = `Hello Omnia Fashion - Mansoura%0AName: ${name}%0AAddress: ${address}%0A%0A`;
+    Object.entries(cart).forEach(([id,qty])=>{ let it=products.find(m=>m.id==id); msg+=`${it.name} x${qty} = ${it.price*qty} EGP%0A`; });
+    msg+=`%0ADiscount: ${discount} - Delivery: ${delivery}%0ATotal: ${total} EGP`;
+    window.open(`https://wa.me/201068348772?text=${msg}`,'_blank');
+  };
 
-<div class="products" id="products"></div>
+  return (
+    <div className={dark ? "min-h-screen bg-gray-900 text-white pb-10" : "min-h-screen bg-pink-50 pb-10"}>
+      <div className="bg-pink-600 text-white p-6 text-center rounded-b-3xl">
+        <h1 className="text-3xl font-bold">Omnia Fashion 👗</h1>
+        <p>Mansoura, Dakahlia | 01068348772</p>
+        <button onClick={()=>setDark(!dark)} className="bg-black/20 px-4 py-1 rounded-full mt-2 text-sm">{dark ? "☀️ Light" : "🌙 Dark"}</button>
+      </div>
 
-<div class="cart">
-<span>🛒 Cart: <b id="count">0</b> items - <b id="total">0</b> EGP</span>
-<button onclick="orderWhatsApp()">Order on WhatsApp</button>
-</div>
+      <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="🔍 Search for fashion..." className="block w-[90%] max-w-3xl mx-auto mt-4 p-3 rounded-xl border text-black" />
 
-<footer>
-<p>Omnia Fashion - Demo Project by Omnia Ibrahim</p>
-<p>📍 999 Example Road, Cairo, Egypt - Demo Address Only</p>
-<p>📞 01599999999 - Demo Number Only</p>
-<p>This is a demo store, not a real shop.</p>
-</footer>
+      <div className="flex gap-2 justify-center mt-3 flex-wrap px-4">
+        {['All','Dresses','Jackets','Shoes','Bags'].map(c=>(
+          <button key={c} onClick={()=>setFilter(c)} className={filter===c ? "bg-pink-600 text-white px-4 py-2 rounded-full font-bold" : "bg-white text-black px-4 py-2 rounded-full shadow"}>{c}</button>
+        ))}
+      </div>
 
-<script>
-const items=[
-{name:"Elegant Summer Dress",price:450,old:600,cat:"dresses",img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600"},
-{name:"Casual Floral Dress",price:380,old:500,cat:"dresses",img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600"},
-{name:"Chiffon Hijab",price:150,old:200,cat:"hijab",img:"https://images.unsplash.com/photo-1585037669753-1a5a3b4c1c5a?w=600"},
-{name:"Cotton Hijab",price:120,old:170,cat:"hijab",img:"https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600"},
-{name:"Leather Hand Bag",price:550,old:700,cat:"bags",img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600"},
-{name:"Trendy Cross Bag",price:420,old:550,cat:"bags",img:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600"},
-{name:"White Sneakers",price:650,old:800,cat:"shoes",img:"https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600"},
-{name:"Elegant Heels",price:580,old:750,cat:"shoes",img:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600"},
-];
-let cart=[]; let current='all'; let favs=[]; let showFavOnly=false;
-function render(){
-let q=document.getElementById('search').value.toLowerCase();
-let box=document.getElementById('products'); box.innerHTML='';
-let list=items.filter(i=>(current==='all'||i.cat===current) && i.name.toLowerCase().includes(q));
-if(showFavOnly) list=list.filter(i=>favs.includes(i.name));
-if(list.length===0) box.innerHTML='<p style="text-align:center">No products found</p>';
-list.forEach(item=>{
-let isFav=favs.includes(item.name)?'❤️ Remove from Fav':'🤍 Add to Fav';
-box.innerHTML+=`<div class="card"><img src="${item.img}"><div class="card-body"><h3>${item.name}</h3><p>⭐ 4.8 - Best Seller</p><div class="price">${item.price} EGP <span class="old">${item.old} EGP</span></div><button onclick="addToCart('${item.name}',${item.price})">Add to Cart</button><button class="fav" onclick="toggleFav('${item.name}')">${isFav}</button></div></div>`;
-});
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 max-w-3xl mx-auto">
+        {filtered.map(item=>(
+          <div key={item.id} className="bg-white text-black rounded-2xl shadow overflow-hidden">
+            <img src={item.img} className="w-full h-48 object-cover" />
+            <div className="p-4 flex justify-between items-start">
+              <div>
+                <h2 className="font-bold text-lg">{item.name} <button onClick={()=>toggleFav(item.id)}>{fav.includes(item.id) ? "❤️" : "🤍"}</button></h2>
+                <p className="text-gray-500 text-sm">{item.desc}</p>
+                <p className="font-bold text-pink-600">{item.price} EGP</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button onClick={()=>changeQty(item.id,1)} className="bg-pink-600 text-white w-8 h-8 rounded-full font-bold">+</button>
+                <span className="font-bold">{cart[item.id]||0}</span>
+                <button onClick={()=>changeQty(item.id,-1)} className="bg-gray-200 w-8 h-8 rounded-full font-bold">-</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-white text-black p-4 rounded-2xl shadow max-w-3xl mx-auto mx-4 md:mx-auto">
+        <h2 className="font-bold text-xl text-center">🛒 Your Cart: {totalItems} item</h2>
+        {Object.entries(cart).map(([id,qty])=>{ let it=products.find(m=>m.id==id); return <p key={id} className="text-center text-sm">{it.name} x{qty} = {it.price*qty} EGP <button onClick={()=>changeQty(id,-qty)} className="text-red-500">❌</button></p> })}
+        <p className="text-center mt-2">Subtotal: {subtotal} | Discount: {discount} | Delivery: {delivery} | <b>Total: {total} EGP</b></p>
+        <input value={promo} onChange={e=>setPromo(e.target.value)} placeholder="Promo code - try OMNIA10" className="w-full border p-3 rounded-xl mt-2" />
+        <input value={name} onChange={e=>setName(e.target.value)} placeholder="Your name" className="w-full border p-3 rounded-xl mt-2" />
+        <input value={address} onChange={e=>setAddress(e.target.value)} placeholder="Your address in Mansoura" className="w-full border p-3 rounded-xl mt-2" />
+        <button onClick={order} className="w-full bg-green-500 text-white py-3 rounded-xl font-bold mt-3">Order on WhatsApp 📲 - {total} EGP</button>
+      </div>
+      <p className="text-center text-xs text-gray-400 mt-8">This is a Demo Project by Omnia Ibrahim - Mansoura, Dakahlia<br/>For Portfolio | WhatsApp: 01068348772</p>
+    </div>
+  );
 }
-function addToCart(n,p){cart.push({name:n,price:p});document.getElementById('count').innerText=cart.length;document.getElementById('total').innerText=cart.reduce((s,i)=>s+i.price,0);alert(n+" added to cart");}
-function filterItems(c,b){current=c;showFavOnly=false;document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();}
-function toggleFav(n){favs.includes(n)?favs=favs.filter(x=>x!==n):favs.push(n);render();}
-function showFav(){showFavOnly=true;render();}
-function showAll(){showFavOnly=false;current='all';render();}
-function orderWhatsApp(){if(cart.length===0){alert("Cart is empty");return;}let msg="Hello Omnia Fashion! I want to order:%0A";cart.forEach(i=>msg+=`- ${i.name} - ${i.price} EGP%0A`);msg+=`Total: ${cart.reduce((s,i)=>s+i.price,0)} EGP`;window.open("https://wa.me/201599999999?text="+msg,"_blank");}
-render();
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
 </body>
 </html>
